@@ -2,7 +2,7 @@ const UsersModel = require('../models/User.js');
 let jwt = require('jsonwebtoken');
 let { expressjwt } = require('express-jwt');
 
-let secretkey = process.env.SECRETKEY;
+let secretkey = process.env.JWT_SECRET;
 
 module.exports.signin = async function (req, res, next) {
     try {
