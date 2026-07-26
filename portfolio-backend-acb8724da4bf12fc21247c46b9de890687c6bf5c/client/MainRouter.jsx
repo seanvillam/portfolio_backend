@@ -8,6 +8,7 @@ import Layout from './components/Layout'
 import References from './src/references'
 import Services from './src/services'
 import Counter from './src/counter'
+import AdminDashboard from "./src/admin";
 
 const MainRouter = () => {
             // The Layout component is included here so that it is displayed on all pages
@@ -22,6 +23,7 @@ const MainRouter = () => {
             <Route path="/references" element={<References />} />
             <Route path="/services" element={<Services />} />
             <Route path="/counter" element={<Counter />} />
+            <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
     </div>)
 }
