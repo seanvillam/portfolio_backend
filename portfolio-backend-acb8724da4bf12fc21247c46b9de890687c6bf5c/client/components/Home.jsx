@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import Counter from "../src/Counter";
+import controlledComponent from "./ControlledComponent";
+import incrementdecrement from "../src/IncrementDecrement";
 import About from "../src/about";
 export default function Home() {
 
@@ -6,6 +9,9 @@ export default function Home() {
   <div>
     <h2 class="fade-in-text">Transforming Ideas into Reality.</h2>
     <h2 class="fade-in-text">Learn more <Link to="/about">about me</Link>.</h2>
+    <Counter />
+    <controlledComponent />
+
   </div>
   );
 }

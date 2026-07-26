@@ -1,42 +1,42 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { list, remove } from "./api-users";
+import { list, remove } from "./api-references";
 
-export default function UserList() {
+export default function ReferenceList() {
 
-    const [users, setUsers] = useState([]);
+    const [references, setReferences] = useState([]);
 
     useEffect(() => {
-        loadUsers();
+        loadReferences();
     }, []);
 
-    const loadUsers = async () => {
+    const loadReferences = async () => {
         const data = await list();
 
         if (data) {
-            setUsers(data);
+            setReferences(data);
         }
     };
 
-    const deleteUser = async (id) => {
+    const deleteReference = async (id) => {
 
-        if (!window.confirm("Delete this user?")) return;
+        if (!window.confirm("Delete this reference?")) return;
 
         await remove(id);
-        loadUsers();
+        loadReferences();
     };
 
     return (
         <div className="container mt-4">
 
             <div className="d-flex justify-content-between mb-3">
-                <h2>Users</h2>
+                <h2>References</h2>
 
                 <Link
-                    to="/admin/users/create"
+                    to="/admin/references/create"
                     className="btn btn-primary"
                 >
-                    Add User
+                    Add Reference
                 </Link>
             </div>
 
@@ -45,25 +45,28 @@ export default function UserList() {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th>Position</th>
+                        <th>Company</th>
                         <th width="200">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                    {users.map(user => (
+                    {references.map(reference => (
 
-                        <tr key={user._id}>
+                        <tr key={reference._id}>
 
-                            <td>{user.name}</td>
+                            <td>{reference.name}</td>
 
-                            <td>{user.email}</td>
+                            <td>{reference.position}</td>
+
+                            <td>{reference.company}</td>
 
                             <td>
 
                                 <Link
-                                    to={`/admin/users/edit/${user._id}`}
+                                    to={`/admin/references/edit/${reference._id}`}
                                     className="btn btn-warning btn-sm me-2"
                                 >
                                     Edit
@@ -71,7 +74,7 @@ export default function UserList() {
 
                                 <button
                                     className="btn btn-danger btn-sm"
-                                    onClick={() => deleteUser(user._id)}
+                                    onClick={() => deleteReference(reference._id)}
                                 >
                                     Delete
                                 </button>

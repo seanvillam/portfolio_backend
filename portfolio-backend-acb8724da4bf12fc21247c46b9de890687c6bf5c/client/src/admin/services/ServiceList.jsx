@@ -1,69 +1,71 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { list, remove } from "./api-users";
+import { list, remove } from "./api-services";
 
-export default function UserList() {
+export default function ServiceList() {
 
-    const [users, setUsers] = useState([]);
+    const [services, setServices] = useState([]);
 
     useEffect(() => {
-        loadUsers();
+        loadServices();
     }, []);
 
-    const loadUsers = async () => {
+    const loadServices = async () => {
         const data = await list();
 
         if (data) {
-            setUsers(data);
+            setServices(data);
         }
     };
 
-    const deleteUser = async (id) => {
+    const deleteService = async (id) => {
 
-        if (!window.confirm("Delete this user?")) return;
+        if (!window.confirm("Delete this service?")) return;
 
         await remove(id);
-        loadUsers();
+        loadServices();
     };
 
     return (
         <div className="container mt-4">
 
             <div className="d-flex justify-content-between mb-3">
-                <h2>Users</h2>
+
+                <h2>Services</h2>
 
                 <Link
-                    to="/admin/users/create"
+                    to="/admin/services/create"
                     className="btn btn-primary"
                 >
-                    Add User
+                    Add Service
                 </Link>
+
             </div>
 
             <table className="table table-bordered">
 
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
+                        <th>Title</th>
+                        <th>Description</th>
                         <th width="200">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                    {users.map(user => (
+                    {services.map(service => (
 
-                        <tr key={user._id}>
+                        <tr key={service._id}>
 
-                            <td>{user.name}</td>
+                            <td>{service.title}</td>
 
-                            <td>{user.email}</td>
+                            <td>{service.description}</td>
 
                             <td>
 
                                 <Link
-                                    to={`/admin/users/edit/${user._id}`}
+                                    to={`/admin/services/edit/${service._id}`}
                                     className="btn btn-warning btn-sm me-2"
                                 >
                                     Edit
@@ -71,7 +73,7 @@ export default function UserList() {
 
                                 <button
                                     className="btn btn-danger btn-sm"
-                                    onClick={() => deleteUser(user._id)}
+                                    onClick={() => deleteService(service._id)}
                                 >
                                     Delete
                                 </button>
